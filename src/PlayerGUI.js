@@ -38,14 +38,20 @@ class PlayerGUI {
         card.innerHTML = cardData.toString();
     }
 
+    clearCards() {
+        this.cardBox.innerHTML = '';
+    }
+
     enable() {
         this.hitButton.addEventListener('click', this.hit);
         this.stayButton.addEventListener('click', this.endTurn);
     }
 
     disable() {
-        this.hitButton.removeEventListener('click', this.hit);
-        this.stayButton.removeEventListener('click', this.endTurn);
+        if (this.buttonBox) {
+            this.hitButton.removeEventListener('click', this.hit);
+            this.stayButton.removeEventListener('click', this.endTurn);
+        }
     }
 }
 

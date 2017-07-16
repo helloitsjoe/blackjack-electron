@@ -2,8 +2,9 @@ class Deck {
     constructor(game, numPacks) {
         this.game = game;
         this.cards = [];
+        this.discards = [];
         this.init(numPacks);
-        this.shuffle(this.cards);
+        this.shuffle();
         // this.cards.forEach((card) => {
         //     console.log(card);
         // });
@@ -57,7 +58,14 @@ class Deck {
         }
     }
 
-    shuffle(arr) {
+    shuffle() {
+        console.log('Shuffling...');
+        // transfer cards from discard array
+        if (!this.cards.length && this.discards.length) {
+            this.cards = this.cards.concat(this.discards);
+            this.discards.length = 0;
+        }
+        console.log('cards', this.cards.length);
         // shuffle deck;
         let currIndex = this.cards.length;
         let randomIndex;
@@ -67,9 +75,9 @@ class Deck {
             randomIndex = Math.floor(Math.random() * currIndex);
             currIndex --;
 
-            temp = arr[currIndex];
-            arr[currIndex] = arr[randomIndex];
-            arr[randomIndex] = temp;
+            temp = this.cards[currIndex];
+            this.cards[currIndex] = this.cards[randomIndex];
+            this.cards[randomIndex] = temp;
         }
     }
 }
