@@ -1,6 +1,5 @@
 const Deck = require('./Deck');
 const Player = require('./Player');
-// const GUI = require('./GUI');
 
 const DEALER = 1;
 
@@ -8,6 +7,7 @@ class Game {
     constructor() {
         this.totalPlayers = DEALER;
         this.players = [];
+        this.curr = 0;
     }
 
     play() {
@@ -19,19 +19,22 @@ class Game {
         this.deck = new Deck(this, 1);
         this.makePlayers();
         this.deal();
-
-        // Debug
-        this.players.forEach((player, idx) => {
-            player.hand.forEach((card) => {
-                console.log(idx, card.toString());
-            });
-            console.log('Score:', player.score);
-        });
+        this.nextTurn();
     }
 
     deal() {
         for (let i = 0; i < this.totalPlayers; i++) {
             this.players[i].deal();
+        }
+    }
+
+    nextTurn() {
+        this.curr++;
+        if (this.curr < this.totalPlayers) {
+            this.players[this.curr].gui.enable();
+        } else {
+            this.curr = 0;
+            this.players[this.curr].dealerTurn();
         }
     }
 
@@ -42,11 +45,8 @@ class Game {
     makePlayers() {
         for (let i = 0; i < this.totalPlayers; i++) {
             // dealer is position 0
-            let player = new Player(i, this.deck);
+            let player = new Player(this, i, this.deck);
             this.players.push(player);
-            // if (i > 0) {
-            //     this.gui.createPlayer(player);
-            // }
         }
     }
 }

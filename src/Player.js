@@ -1,12 +1,14 @@
 const PlayerGUI = require('./PlayerGUI');
 
 class Player {
-    constructor(position, deck) {
+    constructor(game, position, deck) {
+        this.game = game;
         this.hand = [];
         this.bust = false;
         this.position = position;
         this.score = null;
         this.deck = deck;
+        this.dealerInt = null;
         this.gui = new PlayerGUI(this);
     }
 
@@ -25,6 +27,7 @@ class Player {
         if (this.score > 21) {
             this.bust = true;
             this.gui.disable();
+            this.game.nextTurn();
             return;
             // end turn
         } else if (this.score === 21) {
@@ -34,10 +37,16 @@ class Player {
         }
     }
 
+    endTurn() {
+        this.game.nextTurn();
+    }
+
     dealerTurn() {
-        setInterval(() => {
+        this.dealerInt = setInterval(() => {
             if (this.score < 17) {
                 this.hit();
+            } else {
+                clearInterval(this.dealerInt);
             }
         }, 500);
     }

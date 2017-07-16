@@ -18,9 +18,6 @@ class PlayerGUI {
             this.buttonBox = e('div', 'button-box', null, this.board);
             this.hitButton = e('button', null, null, this.buttonBox, 'Hit');
             this.stayButton = e('button', null, null, this.buttonBox, 'Stay');
-
-            this.hitButton.addEventListener('click', this.hit);
-            this.stayButton.addEventListener('click', this.endTurn);
         }
         this.infoBox = e('div', 'info', null, this.board)
         this.label = e('span', null, null, this.infoBox, infoText);
@@ -32,13 +29,18 @@ class PlayerGUI {
     }
 
     endTurn() {
-
+        this.player.endTurn();
     }
 
     addCard(cardData) {
         this.score.innerHTML = this.player.score.toString();
         let card = e('div', 'card', null, this.cardBox);
         card.innerHTML = cardData.toString();
+    }
+
+    enable() {
+        this.hitButton.addEventListener('click', this.hit);
+        this.stayButton.addEventListener('click', this.endTurn);
     }
 
     disable() {

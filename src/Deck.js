@@ -11,15 +11,12 @@ class Deck {
     }
 
     init(numPacks) {
-        // const suits = {
-        //     clubs: 0,
-        //     hearts: 1,
-        //     diamonds: 2,
-        //     spades: 3
-        // }
-
-        // for logging purposes
-        const suits = [ 'clubs', 'hearts', 'diamonds', 'spades' ];
+        const suits = {
+            clubs: 0,
+            hearts: 1,
+            diamonds: 2,
+            spades: 3
+        }
 
         const faces = (val) => {
             switch(val) {
@@ -52,7 +49,7 @@ class Deck {
                         value,
                         suit: suits[suit],
                         face: faces(i),
-                        toString: () => `${faces(i)}</br>${suits[suit]}`
+                        toString: () => `${faces(i)}</br>${suit}`
                     };
                     this.cards.push(card);
                 }
@@ -75,20 +72,6 @@ class Deck {
             arr[randomIndex] = temp;
         }
     }
-
-    // deal(player) {
-    //     // pop two cards off for each player
-    //     this.hit(player);
-    //     this.hit(player);
-    // }
-    //
-    // hit(player) {
-    //     // pop one card off the top
-    //     let card = this.cards.pop();
-    //     player.hand.push(card);
-    //     player.addCard(card);
-    //     // this.game.gui.addCard(player, card);
-    // }
 }
 
 module.exports = Deck;
