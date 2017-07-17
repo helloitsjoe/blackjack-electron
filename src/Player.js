@@ -39,9 +39,11 @@ class Player {
         let card = this.deck.cards.pop();
         this.hand.push(card);
 
-        if (card.value === 11 && this.score + card.value > 21) {
-            card.value = 1;
-        }
+        this.hand.forEach((c) => {
+            if (c.value === 11 && this.score + c.value > 21) {
+                c.value = 1;
+            }
+        })
 
         this.score += card.value;
         this.gui.addCard(card);

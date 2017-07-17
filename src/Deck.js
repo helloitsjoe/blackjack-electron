@@ -45,7 +45,7 @@ class Deck {
             for (let suit in suits) {
                 // push 13 cards
                 for (let i = 1; i <= 13; i++) {
-                    let value = i > 10 ? 10 : i === 1 ? 11 : i;
+                    let value = i > 10 ? 10 : (i === 1 ? 11 : i);
                     let card = {
                         value,
                         suit: suits[suit],

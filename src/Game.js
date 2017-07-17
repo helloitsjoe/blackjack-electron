@@ -52,13 +52,14 @@ class Game {
 
         dealer.reveal();
 
-        let endText;
-        let reason;
+        let endText = '';
+        let reason = '';
 
-        if (!dealer.bust && (dealer.blackjack || player.bust || player.score < dealer.score)) {
+        if (!dealer.bust && ((dealer.blackjack && !player.blackjack) || player.bust || player.score < dealer.score)) {
             endText = 'You lose!';
+            // Technically blackjack is only if first 2 cards total 21
             reason = player.bust ? 'Busted!' : dealer.blackjack ? 'Dealer has blackjack!' : player.score < dealer.score ? 'Dealer is higher!' : null;
-        } else if (dealer.bust || player.blackjack || player.score > dealer.score) {
+        } else if (dealer.bust || (player.blackjack && !dealer.blackjack) || player.score > dealer.score) {
             endText = 'You win!';
             reason = dealer.bust ? 'Dealer busted!' : player.blackjack ? 'Blackjack!' : player.score > dealer.score ? 'Player is higher!' : null;
         } else {
