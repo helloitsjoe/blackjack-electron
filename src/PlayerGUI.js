@@ -14,28 +14,20 @@ class PlayerGUI {
         this.board = e('div', 'player', `player-${this.player.position}`, boardParent);
         this.cardBox = e('div', null, null, this.board);
 
-        if (this.player.position > 0) {
-            this.buttonBox = e('div', 'button-box', null, this.board);
-            this.hitButton = e('button', null, null, this.buttonBox, 'Hit');
-            this.stayButton = e('button', null, null, this.buttonBox, 'Stay');
-        }
+        this.buttonBox = e('div', 'button-box', null, this.board);
+        this.hitButton = e('button', null, null, this.buttonBox, 'Hit');
+        this.stayButton = e('button', null, null, this.buttonBox, 'Stay');
+
         this.infoBox = e('div', 'info', null, this.board)
         this.label = e('span', null, null, this.infoBox, infoText);
         this.score = e('span', null, null, this.infoBox);
-    }
-
-    hit() {
-        this.player.hit();
-    }
-
-    endTurn() {
-        this.player.endTurn();
     }
 
     addCard(cardData) {
         this.score.innerHTML = this.player.score.toString();
         let card = e('div', 'card', null, this.cardBox);
         card.innerHTML = cardData.toString();
+        return card;
     }
 
     clearCards() {
@@ -52,6 +44,14 @@ class PlayerGUI {
             this.hitButton.removeEventListener('click', this.hit);
             this.stayButton.removeEventListener('click', this.endTurn);
         }
+    }
+
+    hit() {
+        this.player.hit();
+    }
+
+    endTurn() {
+        this.player.endTurn();
     }
 }
 

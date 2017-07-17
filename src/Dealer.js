@@ -1,9 +1,6 @@
 const Player = require('./Player');
 
 class Dealer extends Player {
-    constructor() {
-        super();
-    }
 
     dealerTurn() {
         while (this.score < 17) {
@@ -12,6 +9,10 @@ class Dealer extends Player {
         if (this.score < 21) {
             this.game.end();
         }
+    }
+
+    reveal() {
+        this.gui.reveal(this.hand[0]);
     }
 }
 

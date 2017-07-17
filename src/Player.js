@@ -1,4 +1,5 @@
 const PlayerGUI = require('./PlayerGUI');
+const DealerGUI = require('./DealerGUI');
 
 class Player {
     constructor(game, position, deck) {
@@ -12,7 +13,7 @@ class Player {
         this.bust = false;
         this.blackjack = false;
 
-        this.gui = new PlayerGUI(this);
+        this.gui = position > 0 ? new PlayerGUI(this) : new DealerGUI(this);
     }
 
     deal() {
@@ -31,12 +32,16 @@ class Player {
     }
 
     hit() {
-        console.log(this.deck.cards.length)
         if (!this.deck.cards.length) {
             this.deck.shuffle();
         }
+
         let card = this.deck.cards.pop();
         this.hand.push(card);
+
+        if (card.value === 11 && this.score + card.value > 21) {
+            card.value = 1;
+        }
 
         this.score += card.value;
         this.gui.addCard(card);
@@ -53,16 +58,7 @@ class Player {
     }
 
     endTurn() {
-        this.game.nextTurn();
-    }
-
-    dealerTurn() {
-        while (this.score < 17) {
-            this.hit();
-        }
-        if (this.score < 21) {
-            this.game.end();
-        }
+        this.game.nextPlayer();
     }
 }
 

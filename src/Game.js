@@ -1,7 +1,10 @@
 const Deck = require('./Deck');
 const Player = require('./Player');
+const Dealer = require('./Dealer');
 
 const DEALER = 1;
+
+// TODO: Aces become worth 1 if score > 21
 
 class Game {
     constructor() {
@@ -28,10 +31,10 @@ class Game {
         for (let i = 0; i < this.totalPlayers; i++) {
             this.players[i].deal();
         }
-        this.nextTurn();
+        this.nextPlayer();
     }
 
-    nextTurn() {
+    nextPlayer() {
         // this.players[this.curr].gui.disable();
         this.curr++;
         if (this.curr < this.totalPlayers) {
@@ -46,19 +49,24 @@ class Game {
         // TODO: Make this work for multiple players
         const dealer = this.players[0];
         const player = this.players[1];
+
+        dealer.reveal();
+
         let endText;
         let reason;
+
         if (!dealer.bust && (dealer.blackjack || player.bust || player.score < dealer.score)) {
             endText = 'You lose!';
             reason = player.bust ? 'Busted!' : dealer.blackjack ? 'Dealer has blackjack!' : player.score < dealer.score ? 'Dealer is higher!' : null;
         } else if (dealer.bust || player.blackjack || player.score > dealer.score) {
             endText = 'You win!';
-            reason = dealer.bust ? 'Dealer busted!' : player.score > dealer.score ? 'Player is higher!' : player.blackjack ? 'Blackjack!' : null;
+            reason = dealer.bust ? 'Dealer busted!' : player.blackjack ? 'Blackjack!' : player.score > dealer.score ? 'Player is higher!' : null;
         } else {
             endText = 'Tie!';
         }
+
         this.endState.innerHTML = `<h1>${endText}</h1>
-        ${reason}`;
+        <h5>${reason}</h5>`;
         this.endState.classList.toggle('hidden');
     }
 
@@ -69,10 +77,11 @@ class Game {
     }
 
     makePlayers() {
-        for (let i = 0; i < this.totalPlayers; i++) {
+        this.players.push(new Dealer(this, 0, this.deck));
+
+        for (let i = 1; i < this.totalPlayers; i++) {
             // dealer is position 0
-            let player = new Player(this, i, this.deck);
-            this.players.push(player);
+            this.players.push(new Player(this, i, this.deck));
         }
     }
 }
