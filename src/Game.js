@@ -4,8 +4,6 @@ const Dealer = require('./Dealer');
 
 const DEALER = 1;
 
-// TODO: Aces become worth 1 if score > 21
-
 class Game {
     constructor() {
         this.totalPlayers = DEALER;
@@ -55,6 +53,7 @@ class Game {
         let endText = '';
         let reason = '';
 
+        // This is quite ugly, find a cleaner way to do this.
         if (!dealer.bust && ((dealer.blackjack && !player.blackjack) || player.bust || player.score < dealer.score)) {
             endText = 'You lose!';
             // Technically blackjack is only if first 2 cards total 21

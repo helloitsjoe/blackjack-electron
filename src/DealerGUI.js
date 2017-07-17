@@ -4,6 +4,8 @@ class DealerGUI extends PlayerGUI {
 
     init() {
         super.init();
+        
+        // Hide buttons and info, but keep visual spacing of info
         this.buttonBox.style.display = 'none';
         this.infoBox.style.visibility = 'hidden';
     }

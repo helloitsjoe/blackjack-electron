@@ -5,6 +5,8 @@ class Deck {
         this.discards = [];
         this.init(numPacks);
         this.shuffle();
+
+        // debug
         // this.cards.forEach((card) => {
         //     console.log(card);
         // });
@@ -65,7 +67,7 @@ class Deck {
             this.cards = this.cards.concat(this.discards);
             this.discards.length = 0;
         }
-        console.log('cards', this.cards.length);
+        
         // shuffle deck;
         let currIndex = this.cards.length;
         let randomIndex;

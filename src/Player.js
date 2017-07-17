@@ -39,6 +39,8 @@ class Player {
         let card = this.deck.cards.pop();
         this.hand.push(card);
 
+        // Check for aces, make them worth 1 if they would
+        // push the total score over 21
         this.hand.forEach((c) => {
             if (c.value === 11 && this.score + c.value > 21) {
                 c.value = 1;
