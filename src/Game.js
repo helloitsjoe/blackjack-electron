@@ -66,8 +66,7 @@ class Game {
             endText = 'Tie!';
         }
 
-        this.endState.innerHTML = `<h1>${endText}</h1>
-        <h5>${reason}</h5>`;
+        this.endState.innerHTML = `<h1>${endText}</h1><h5>${reason}</h5>`;
         this.endState.classList.toggle('hidden');
     }
 
