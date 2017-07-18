@@ -19,8 +19,8 @@ class Game {
         // Prompt not supported, use smalltalk module?
         // const newPlayers = prompt('How many players?');
         const newPlayers = 1;
-        this.totalPlayers = DEALER + newPlayers;
-        this.deck = new Deck(this, 1);
+        this.totalPlayers += newPlayers;
+        this.deck = new Deck(1);
         this.makePlayers();
         this.deal();
     }

@@ -1,6 +1,5 @@
 class Deck {
-    constructor(game, numPacks) {
-        this.game = game;
+    constructor(numPacks) {
         this.cards = [];
         this.discards = [];
         this.init(numPacks);
@@ -67,7 +66,7 @@ class Deck {
             this.cards = this.cards.concat(this.discards);
             this.discards.length = 0;
         }
-        
+
         // shuffle deck;
         let currIndex = this.cards.length;
         let randomIndex;
