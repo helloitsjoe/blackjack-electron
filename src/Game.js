@@ -2,11 +2,9 @@ const Deck = require('./Deck');
 const Player = require('./Player');
 const Dealer = require('./Dealer');
 
-const DEALER = 1;
-
 class Game {
     constructor() {
-        this.totalPlayers = DEALER;
+        this.totalPlayers = 1; // Dealer
         this.players = [];
         this.curr = 0;
         this.refresh = this.refresh.bind(this);
@@ -16,13 +14,22 @@ class Game {
 
     play() {
         // TODO: set up turns, so hit/stay only works when it's that player's turn
-        // Prompt not supported, use smalltalk module?
+        // TODO: Add players
         // const newPlayers = prompt('How many players?');
         const newPlayers = 1;
         this.totalPlayers += newPlayers;
         this.deck = new Deck(1);
         this.makePlayers();
         this.deal();
+    }
+
+    makePlayers() {
+        this.players.push(new Dealer(this, 0, this.deck));
+
+        for (let i = 1; i < this.totalPlayers; i++) {
+            // dealer is position 0
+            this.players.push(new Player(this, i, this.deck));
+        }
     }
 
     deal() {
@@ -73,15 +80,6 @@ class Game {
         this.endState.classList.toggle('hidden');
         this.curr = 0;
         this.deal();
-    }
-
-    makePlayers() {
-        this.players.push(new Dealer(this, 0, this.deck));
-
-        for (let i = 1; i < this.totalPlayers; i++) {
-            // dealer is position 0
-            this.players.push(new Player(this, i, this.deck));
-        }
     }
 }
 
